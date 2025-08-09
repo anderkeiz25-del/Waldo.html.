@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Where's Waldo Prototype</title>
+  <style>
+    body { text-align: center; font-family: Arial; }
+    #gameImage { max-width: 100%; height: auto; cursor: crosshair; }
+    #message { font-size: 1.5em; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Where's Waldo - Prototype</h1>
+  <p>Click on Waldo when you find him!</p>
+  <img id="gameImage" src="https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png" alt="Game Scene">
+  <div id="message"></div>
+
+  <script>
+    const waldoArea = { x: 50, y: 50, width: 50, height: 50 }; // Example area
+
+    document.getElementById('gameImage').addEventListener('click', function(event) {
+      const rect = this.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const clickY = event.clientY - rect.top;
+
+      const scaleX = this.naturalWidth / rect.width;
+      const scaleY = this.naturalHeight / rect.height;
+      const imgX = clickX * scaleX;
+      const imgY = clickY * scaleY;
+
+      if (imgX >= waldoArea.x && imgX <= waldoArea.x + waldoArea.width &&
+          imgY >= waldoArea.y && imgY <= waldoArea.y + waldoArea.height) {
+        document.getElementById('message').innerText = "You found Waldo!";
+      } else {
+        document.getElementById('message').innerText = "Try again!";
+      }
+    });
+  </script>
+</body>
+</html>
